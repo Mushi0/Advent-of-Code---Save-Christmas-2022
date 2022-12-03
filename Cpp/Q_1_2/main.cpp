@@ -4,29 +4,25 @@
 #include <bits/stdc++.h>
 
 int main(){
-    std::cout << "Hello World!";
-    std::string myText;
     std::ifstream myInputFile{"..\\..\\Data\\Q1.txt"};
+    std::string myText;
     int calories{0};
     int calories_list[254];
     int count{0};
     
-    if (!myInputFile)
-    {
+    if(!myInputFile){
         std::cerr << "Uh oh, file could not be opened for reading!\n";
         return 1;
     }
 
-    while (myInputFile)
-    {
+    while(myInputFile){
         std::getline(myInputFile, myText);
         // std::cout << myText << '\n';
         if(myText.empty()){
             calories_list[count] = calories;
             calories = 0;
             count++;
-        }
-        else{
+        }else{
             calories += stoi(myText);
         }
     }

@@ -48,20 +48,18 @@ int shapeScore(char myMove, char theirMove){
 }
 
 int main(){
-    std::string myText;
     std::ifstream myInputFile{"..\\..\\Data\\Q2.txt"};
+    std::string myText;
     char myMove{};
     char theirMove{};
     int totalScore{0};
 
-    if (!myInputFile)
-    {
+    if(!myInputFile){
         std::cerr << "Uh oh, file could not be opened for reading!\n";
         return 1;
     }
 
-    while (std::getline(myInputFile, myText))
-    {
+    while(std::getline(myInputFile, myText)){
         theirMove = myText[0];
         myMove = myText[2];
         totalScore += (shapeScore(myMove, theirMove) + resultScore(myMove));
