@@ -29,14 +29,12 @@ int main(){
     std::string secondCompartment;
     char sameItem{};
     
-    if(!myInputFile)
-    {
+    if(!myInputFile){
         std::cerr << "Uh oh, file could not be opened for reading!\n";
         return 1;
     }
 
-    while(std::getline(myInputFile, myText))
-    {
+    while(std::getline(myInputFile, myText)){
         long unsigned int n{myText.length()};
         firstCompartment = myText.substr(0, n/2);
         secondCompartment = myText.substr(n/2, n);
