@@ -22,8 +22,8 @@ int getPriority(char item){
 }
 
 int main(){
-    std::string myText;
     std::ifstream myInputFile{"../../Data/Q3.txt"};
+    std::string myText;
     int totalPriorities{};
     std::string firstCompartment;
     std::string secondCompartment;

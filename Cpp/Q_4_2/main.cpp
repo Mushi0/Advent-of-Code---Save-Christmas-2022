@@ -22,8 +22,8 @@ int isoverlaped(int a[], int b[]){
 }
 
 int main(){
-    std::string myText;
     std::ifstream myInputFile{"../../Data/Q4.txt"};
+    std::string myText;
     int nbOverlapedPairs{0};
     
     if(!myInputFile){
