@@ -5,6 +5,11 @@
 
 std::ifstream myInputFile{"../../Data/Q6.txt"};
 
+void readSignal(std::queue<char>& signalBuffer, char signal){
+        signalBuffer.push(signal);
+        signalBuffer.pop();
+}
+
 bool detectStartSignal(std::queue<char> signalBuffer){
     unsigned long int signalBufferSize{signalBuffer.size()};
     char signalBufferChr[signalBufferSize];
@@ -40,8 +45,7 @@ int main(){
         if(detectStartSignal(signalBuffer)){
             break;
         }
-        signalBuffer.push(myText[i]);
-        signalBuffer.pop();
+        readSignal(signalBuffer, myText[i]);
         characterCoung += 1;
     }
 
