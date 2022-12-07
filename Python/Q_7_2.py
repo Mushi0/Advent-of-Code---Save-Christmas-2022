@@ -4,8 +4,6 @@ class Node:
         self.data = data
         self.children = []
         self.parent = None
-        self.left = None
-        self.right = None
     
     def createChild(self, child):
         self.children.append(child)
