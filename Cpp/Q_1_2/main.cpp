@@ -17,7 +17,6 @@ int main(){
 
     while(myInputFile){
         std::getline(myInputFile, myText);
-        // std::cout << myText << '\n';
         if(myText.empty()){
             calories_list[count] = calories;
             calories = 0;

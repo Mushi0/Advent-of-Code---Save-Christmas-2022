@@ -21,14 +21,15 @@ class Node:
         return size
 
 def findDirToDelete(spaceToDelete, thisNode):
-    dirsToDelete = []
+    dirToDelete = float('inf')
     thisSize = thisNode.returnSize()
-    if thisSize > spaceToDelete:
-        dirsToDelete.append(thisSize)
+    if (thisSize > spaceToDelete) and (thisSize < dirToDelete):
+        dirToDelete = thisSize
     for child in thisNode.children:
-        if child.children != []:
-            dirsToDelete += findDirToDelete(spaceToDelete, child)
-    return dirsToDelete
+        childDirToDelete = findDirToDelete(spaceToDelete, child)
+        if dirToDelete > childDirToDelete:
+            dirToDelete = childDirToDelete
+    return dirToDelete
 
 def main():
     TXT_FILE = 'Data/Q7.txt'
@@ -59,8 +60,8 @@ def main():
                     thisNode.createChild(newFile)
 
     spaceToDelete = spaceNeeded - (totalSpace - root.returnSize())
-    dirsToDelete = findDirToDelete(spaceToDelete, root)
-    print(f'The size of the directory needed to delete: {min(dirsToDelete)}')
+    dirToDelete = findDirToDelete(spaceToDelete, root)
+    print(f'The size of the directory needed to delete: {dirToDelete}')
 
 if __name__ == '__main__':
     main()
