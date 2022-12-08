@@ -1,5 +1,6 @@
 # Advent-of-Code---Save-Christmas-2022
 
+## Table of Progress[^1]
 |Day|C++|Q1 time|Q2 time|Python|Q1 time|Q2 time|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 |01|[:rabbit:](https://github.com/Mushi0/Advent-of-Code---Save-Christmas-2022/tree/main/Cpp/Q_1_1)[:bear:](https://github.com/Mushi0/Advent-of-Code---Save-Christmas-2022/tree/main/Cpp/Q_1_2)|0.001s|0.001s||||
@@ -27,3 +28,5 @@
 |23|||||||
 |24|||||||
 |25|||||||
+
+[^1]: :rabbit:: link to the first problem; :bear:: link to the second problem. 
