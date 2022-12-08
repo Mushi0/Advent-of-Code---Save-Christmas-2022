@@ -2,8 +2,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include <time.h>
-#include <iomanip>
+#include <chrono>
 
 std::ifstream myInputFile{"..\\..\\Data\\Q8.txt"};
 const int mapSize{99};
@@ -11,13 +10,8 @@ int map[mapSize][mapSize]{0};
 bool ifVisible[mapSize][mapSize]{false};
 
 int main(){
-    clock_t tStart = clock();
+    auto start = std::chrono::high_resolution_clock::now();
 
-    if(!myInputFile){
-        std::cerr << "Uh oh, file could not be opened for reading!\n";
-        return 1;
-    }
-    
     char c;
     for(int i = 0; i < mapSize; i++){
         for(int j = 0; j < mapSize; j++){
@@ -67,7 +61,9 @@ int main(){
         }
     }
 
-    std::cout << "Time taken: " << (double)(clock() - tStart)/CLOCKS_PER_SEC << "s\n";
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    std::cout << "Time taken: " << duration.count()*1e-6 << "s\n";
     std::cout << "The number of trees visible from outside the grid: " 
                 << nbVisible << std::endl;
     return 0;

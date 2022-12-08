@@ -4,8 +4,7 @@
 #include <vector>
 #include <sstream>
 #include <limits>
-#include <time.h>
-#include <iomanip>
+#include <chrono>
 
 std::ifstream myInputFile{"..\\..\\Data\\Q7.txt"};
 
@@ -70,16 +69,11 @@ int findDirToDelete(int spaceToDelete, node* thisNode){
 }
 
 int main(){
-    clock_t tStart = clock();
+    auto start = std::chrono::high_resolution_clock::now();
 
     std::string myText;
     int totalSpace{70000000};
     int spaceNeeded{30000000};
-
-    if(!myInputFile){
-        std::cerr << "Uh oh, file could not be opened for reading!\n";
-        return 1;
-    }
 
     node* root = createNode("/", 0);
     node* thisNode = root;
@@ -109,7 +103,9 @@ int main(){
     int spaceToDelete = spaceNeeded - (totalSpace - returnSize(root));
     int dirToDelete = findDirToDelete(spaceToDelete, root);
     
-    std::cout << "Time taken: " << (double)(clock() - tStart)/CLOCKS_PER_SEC << "s\n";
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    std::cout << "Time taken: " << duration.count()*1e-6 << "s\n";
     std::cout << "The size of the directory needed to delete: " 
                 << dirToDelete << std::endl;
     return 0;

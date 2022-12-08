@@ -65,7 +65,7 @@ def main():
 
     spaceToDelete = spaceNeeded - (totalSpace - root.returnSize())
     dirToDelete = findDirToDelete(spaceToDelete, root)
-    print(f'Time taken: {(time.time() - start_time):.3f}s')
+    print(f'Time taken: {(time.time() - start_time):.3e}s')
     print(f'The size of the directory needed to delete: {dirToDelete}')
 
 if __name__ == '__main__':

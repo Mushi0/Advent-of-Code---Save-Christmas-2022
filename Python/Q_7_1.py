@@ -62,7 +62,7 @@ def main():
                     thisNode.createChild(newFile)
 
     totalSize = addTotalSize(maxSize, root)
-    print(f'Time taken: {(time.time() - start_time):.3f}s')
+    print(f'Time taken: {(time.time() - start_time):.3e}s')
     print(f'The sum of the total sizes of directories \
             \nwith a total size of at most 100000: {totalSize}')
 

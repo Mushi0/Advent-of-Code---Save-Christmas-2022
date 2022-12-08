@@ -2,8 +2,7 @@
 #include <iostream>
 #include <string>
 #include <queue>
-#include <time.h>
-#include <iomanip>
+#include <chrono>
 
 std::ifstream myInputFile{"../../Data/Q6.txt"};
 
@@ -28,18 +27,13 @@ bool detectStartSignal(std::queue<char> signalBuffer){
 }
 
 int main(){
-    clock_t tStart = clock();
+    auto start = std::chrono::high_resolution_clock::now();
 
     int nbStartOfPacket{4};
     std::string myText;
     std::queue<char> signalBuffer;
 
-    if(!myInputFile){
-        std::cerr << "Uh oh, file could not be opened for reading!\n";
-        return 1;
-    }else{
-        myInputFile >> myText;
-    }
+    myInputFile >> myText;
 
     for(int i = 0; i < nbStartOfPacket; i++){
         signalBuffer.push(myText[i]);
@@ -53,7 +47,9 @@ int main(){
         characterCoung += 1;
     }
 
-    std::cout << "Time taken: " << (double)(clock() - tStart)/CLOCKS_PER_SEC << "s\n";
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    std::cout << "Time taken: " << duration.count()*1e-6 << "s\n";
     std::cout << "The number of characters need to be processed \
                 \n before the first start-of-packet marker is detected: " 
                 << characterCoung << std::endl;

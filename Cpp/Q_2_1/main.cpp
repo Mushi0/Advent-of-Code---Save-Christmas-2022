@@ -1,8 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <time.h>
-#include <iomanip>
+#include <chrono>
 
 int shapeScore(char move){
     switch(move){
@@ -50,7 +49,7 @@ int resultScore(char myMove, char theirMove){
 }
 
 int main(){
-    clock_t tStart = clock();
+    auto start = std::chrono::high_resolution_clock::now();
 
     std::ifstream myInputFile{"..\\..\\Data\\Q2.txt"};
     std::string myText;
@@ -58,18 +57,15 @@ int main(){
     char theirMove{};
     int totalScore{0};
 
-    if(!myInputFile){
-        std::cerr << "Uh oh, file could not be opened for reading!\n";
-        return 1;
-    }
-
     while(std::getline(myInputFile, myText)){
         theirMove = myText[0];
         myMove = myText[2];
         totalScore += (shapeScore(myMove) + resultScore(myMove, theirMove));
     }
 
-    std::cout << "Time taken: " << (double)(clock() - tStart)/CLOCKS_PER_SEC << "s\n";
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    std::cout << "Time taken: " << duration.count()*1e-6 << "s\n";
     std::cout << "My total score is: " << totalScore;
     return 0;
 }

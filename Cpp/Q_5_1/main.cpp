@@ -4,8 +4,7 @@
 #include <vector>
 #include <stack>
 #include <sstream>
-#include <time.h>
-#include <iomanip>
+#include <chrono>
 
 std::ifstream myInputFile{"../../Data/Q5.txt"};
 int nbStacks{9};
@@ -39,16 +38,10 @@ void moveStacks(std::stack<char>* myStacks, int quantity, int fromStack, int toS
 }
 
 int main(){
-    clock_t tStart = clock();
+    auto start = std::chrono::high_resolution_clock::now();
 
     std::string myText;
     std::string topOfStacks;
-
-    if(!myInputFile){
-        std::cerr << "Uh oh, file could not be opened for reading!\n";
-        return 1;
-    }
-
     std::stack<char> myStacks[nbStacks];
     createStacks(myStacks);
 
@@ -64,7 +57,9 @@ int main(){
         topOfStacks += myStacks[i].top();
     }
 
-    std::cout << "Time taken: " << (double)(clock() - tStart)/CLOCKS_PER_SEC << "s\n";
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    std::cout << "Time taken: " << duration.count()*1e-6 << "s\n";
     std::cout << "The top of the stacks: " << topOfStacks << std::endl;
     return 0;
 }
