@@ -4,6 +4,8 @@
 #include <vector>
 #include <sstream>
 #include <limits>
+#include <time.h>
+#include <iomanip>
 
 std::ifstream myInputFile{"..\\..\\Data\\Q7.txt"};
 
@@ -68,6 +70,8 @@ int findDirToDelete(int spaceToDelete, node* thisNode){
 }
 
 int main(){
+    clock_t tStart = clock();
+
     std::string myText;
     int totalSpace{70000000};
     int spaceNeeded{30000000};
@@ -104,8 +108,9 @@ int main(){
 
     int spaceToDelete = spaceNeeded - (totalSpace - returnSize(root));
     int dirToDelete = findDirToDelete(spaceToDelete, root);
+    
+    std::cout << "Time taken: " << (double)(clock() - tStart)/CLOCKS_PER_SEC << "s\n";
     std::cout << "The size of the directory needed to delete: " 
                 << dirToDelete << std::endl;
-    
     return 0;
 }

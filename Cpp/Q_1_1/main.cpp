@@ -1,8 +1,12 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <time.h>
+#include <iomanip>
 
 int main(){
+    clock_t tStart = clock();
+
     std::ifstream myInputFile{"..\\..\\Data\\Q1.txt"};
     std::string myText;
     int calories{0};
@@ -26,7 +30,7 @@ int main(){
         }
     }
 
+    std::cout << "Time taken: " << (double)(clock() - tStart)/CLOCKS_PER_SEC << "s\n";
     std::cout << "The most calories is: " << mostCalories;
-    
     return 0;
 }

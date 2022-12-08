@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <time.h>
+#include <iomanip>
 
 std::vector<std::string> strsplit(std::string strToSplit, char delimeter){
     std::stringstream ss(strToSplit);
@@ -22,6 +24,8 @@ int iscontained(int a[], int b[]){
 }
 
 int main(){
+    clock_t tStart = clock();
+
     std::ifstream myInputFile{"../../Data/Q4.txt"};
     std::string myText;
     int nbContainedPairs{0};
@@ -40,7 +44,7 @@ int main(){
         nbContainedPairs += iscontained(firstElfInt, secondElfInt);
     }
 
+    std::cout << "Time taken: " << (double)(clock() - tStart)/CLOCKS_PER_SEC << "s\n";
     std::cout << "The number of the assignment pairs where one range fully contain the other: " << nbContainedPairs << std::endl;
-    
     return 0;
 }

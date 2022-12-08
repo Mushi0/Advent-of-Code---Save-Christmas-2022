@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <time.h>
+#include <iomanip>
 
 std::ifstream myInputFile{"..\\..\\Data\\Q8.txt"};
 const int mapSize{99};
@@ -9,6 +11,8 @@ int map[mapSize][mapSize]{0};
 bool ifVisible[mapSize][mapSize]{false};
 
 int main(){
+    clock_t tStart = clock();
+
     if(!myInputFile){
         std::cerr << "Uh oh, file could not be opened for reading!\n";
         return 1;
@@ -62,8 +66,9 @@ int main(){
             nbVisible += ifVisible[i][j];
         }
     }
+
+    std::cout << "Time taken: " << (double)(clock() - tStart)/CLOCKS_PER_SEC << "s\n";
     std::cout << "The number of trees visible from outside the grid: " 
                 << nbVisible << std::endl;
-    
     return 0;
 }

@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 #include <queue>
+#include <time.h>
+#include <iomanip>
 
 std::ifstream myInputFile{"../../Data/Q6.txt"};
 
@@ -26,6 +28,8 @@ bool detectStartSignal(std::queue<char> signalBuffer){
 }
 
 int main(){
+    clock_t tStart = clock();
+
     int nbStartOfPacket{14};
     std::string myText;
     std::queue<char> signalBuffer;
@@ -49,9 +53,9 @@ int main(){
         characterCoung += 1;
     }
 
+    std::cout << "Time taken: " << (double)(clock() - tStart)/CLOCKS_PER_SEC << "s\n";
     std::cout << "The number of characters need to be processed \
                 \n before the first start-of-packet marker is detected: " 
                 << characterCoung << std::endl;
-    
     return 0;
 }

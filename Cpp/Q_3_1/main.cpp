@@ -1,6 +1,8 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <time.h>
+#include <iomanip>
 
 char findSameItem(std::string a, std::string b){
     for(int i = 0; i < a.length(); i++){
@@ -22,6 +24,8 @@ int getPriority(char item){
 }
 
 int main(){
+    clock_t tStart = clock();
+
     std::ifstream myInputFile{"../../Data/Q3.txt"};
     std::string myText;
     int totalPriorities{};
@@ -42,7 +46,7 @@ int main(){
         totalPriorities += getPriority(sameItem);
     }
 
+    std::cout << "Time taken: " << (double)(clock() - tStart)/CLOCKS_PER_SEC << "s\n";
     std::cout << "The sum of the priorities is: " << totalPriorities << std::endl;
-    
     return 0;
 }

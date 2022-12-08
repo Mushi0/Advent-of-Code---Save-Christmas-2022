@@ -4,6 +4,8 @@
 #include <vector>
 #include <stack>
 #include <sstream>
+#include <time.h>
+#include <iomanip>
 
 std::ifstream myInputFile{"../../Data/Q5.txt"};
 int nbStacks{9};
@@ -37,6 +39,8 @@ void moveStacks(std::stack<char>* myStacks, int quantity, int fromStack, int toS
 }
 
 int main(){
+    clock_t tStart = clock();
+
     std::string myText;
     std::string topOfStacks;
 
@@ -60,7 +64,7 @@ int main(){
         topOfStacks += myStacks[i].top();
     }
 
+    std::cout << "Time taken: " << (double)(clock() - tStart)/CLOCKS_PER_SEC << "s\n";
     std::cout << "The top of the stacks: " << topOfStacks << std::endl;
-    
     return 0;
 }

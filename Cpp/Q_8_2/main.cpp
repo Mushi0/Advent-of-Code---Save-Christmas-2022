@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <time.h>
+#include <iomanip>
 
 std::ifstream myInputFile{"..\\..\\Data\\Q8.txt"};
 const int mapSize{99};
@@ -62,6 +64,8 @@ int calScenicScore(int ii, int jj){
 }
 
 int main(){
+    clock_t tStart = clock();
+
     if(!myInputFile){
         std::cerr << "Uh oh, file could not be opened for reading!\n";
         return 1;
@@ -85,8 +89,9 @@ int main(){
             }
         }
     }
+
+    std::cout << "Time taken: " << (double)(clock() - tStart)/CLOCKS_PER_SEC << "s\n";
     std::cout << "The highest scenic score possible for any tree: " 
                 << maxScenicScore << std::endl;
-    
     return 0;
 }

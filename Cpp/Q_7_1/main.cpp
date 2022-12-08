@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <time.h>
+#include <iomanip>
 
 std::ifstream myInputFile{"..\\..\\Data\\Q7.txt"};
 
@@ -70,6 +72,8 @@ int addTotalSize(int maxSize, node* thisNode){
 }
 
 int main(){
+    clock_t tStart = clock();
+
     std::string myText;
     int maxSize{100000};
 
@@ -104,9 +108,10 @@ int main(){
     }
 
     int totalSize = addTotalSize(maxSize, root);
+    
+    std::cout << "Time taken: " << (double)(clock() - tStart)/CLOCKS_PER_SEC << "s\n";
     std::cout << "The sum of the total sizes of directories \
                 \n with a total size of at most 100000: " 
                 << totalSize << std::endl;
-    
     return 0;
 }
