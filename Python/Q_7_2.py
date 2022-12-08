@@ -1,3 +1,5 @@
+import time
+
 class Node:
     def __init__(self, name, data):
         self.name = name
@@ -32,6 +34,8 @@ def findDirToDelete(spaceToDelete, thisNode):
     return dirToDelete
 
 def main():
+    start_time = time.time()
+    
     TXT_FILE = 'Data/Q7.txt'
     totalSpace = 70000000
     spaceNeeded = 30000000
@@ -61,6 +65,7 @@ def main():
 
     spaceToDelete = spaceNeeded - (totalSpace - root.returnSize())
     dirToDelete = findDirToDelete(spaceToDelete, root)
+    print(f'Time taken: {(time.time() - start_time):.3f}s')
     print(f'The size of the directory needed to delete: {dirToDelete}')
 
 if __name__ == '__main__':

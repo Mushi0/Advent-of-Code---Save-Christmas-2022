@@ -1,3 +1,5 @@
+import time
+
 class Node:
     def __init__(self, name, data):
         self.name = name
@@ -31,6 +33,8 @@ def addTotalSize(maxSize, thisNode):
     return totalSize
 
 def main():
+    start_time = time.time()
+    
     TXT_FILE = 'Data/Q7.txt'
     maxSize = 100000
 
@@ -58,6 +62,7 @@ def main():
                     thisNode.createChild(newFile)
 
     totalSize = addTotalSize(maxSize, root)
+    print(f'Time taken: {(time.time() - start_time):.3f}s')
     print(f'The sum of the total sizes of directories \
             \nwith a total size of at most 100000: {totalSize}')
 
