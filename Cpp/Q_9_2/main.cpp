@@ -8,6 +8,51 @@
 std::ifstream myInputFile{"..\\..\\Data\\Q9.txt"};
 const int ropeLength{10};
 
+void moveHead(std::array<int, 2>& headLocation, char move){
+    switch(move){
+        case 'R':
+            headLocation[0]++;
+            break;
+        case 'U':
+            headLocation[1]++;
+            break;
+        case 'L':
+            headLocation[0]--;
+            break;
+        case 'D':
+            headLocation[1]--;
+            break;
+    }
+}
+
+void followMove(std::array<int, 2>& thisLocation, std::array<int, 2>& previousLocation){
+    if(previousLocation[0] == thisLocation[0]){
+        if(previousLocation[1] - thisLocation[1] > 1){
+            thisLocation[1]++;
+        }else if(thisLocation[1] - previousLocation[1] > 1){
+            thisLocation[1]--;
+        }
+    }else if(previousLocation[1] == thisLocation[1]){
+        if(previousLocation[0] - thisLocation[0] > 1){
+            thisLocation[0]++;
+        }else if(thisLocation[0] - previousLocation[0] > 1){
+            thisLocation[0]--;
+        }
+    }else if(!((std::abs(previousLocation[0] - thisLocation[0]) <= 1) && 
+                (std::abs(previousLocation[1] - thisLocation[1]) <= 1))){
+        if(previousLocation[0] > thisLocation[0]){
+            thisLocation[0]++;
+        }else{
+            thisLocation[0]--;
+        }
+        if(previousLocation[1] > thisLocation[1]){
+            thisLocation[1]++;
+        }else{
+            thisLocation[1]--;
+        }
+    }
+}
+
 int main(){
     auto start = std::chrono::high_resolution_clock::now();
     char move;
@@ -23,49 +68,10 @@ int main(){
         myInputFile >> nbSteps;
 
         for(int step = 0; step < nbSteps; step++){
-            switch(move){
-                case 'R':
-                    rope[0][0]++;
-                    break;
-                case 'U':
-                    rope[0][1]++;
-                    break;
-                case 'L':
-                    rope[0][0]--;
-                    break;
-                case 'D':
-                    rope[0][1]--;
-                    break;
-            }
-
+            moveHead(rope[0], move);
             for(int i = 1; i < ropeLength; i++){
-                if(rope[i - 1][0] == rope[i][0]){
-                    if(rope[i - 1][1] - rope[i][1] > 1){
-                        rope[i][1]++;
-                    }else if(rope[i][1] - rope[i - 1][1] > 1){
-                        rope[i][1]--;
-                    }
-                }else if(rope[i - 1][1] == rope[i][1]){
-                    if(rope[i - 1][0] - rope[i][0] > 1){
-                        rope[i][0]++;
-                    }else if(rope[i][0] - rope[i - 1][0] > 1){
-                        rope[i][0]--;
-                    }
-                }else if(!((std::abs(rope[i - 1][0] - rope[i][0]) <= 1) && 
-                            (std::abs(rope[i - 1][1] - rope[i][1]) <= 1))){
-                    if(rope[i - 1][0] > rope[i][0]){
-                        rope[i][0]++;
-                    }else{
-                        rope[i][0]--;
-                    }
-                    if(rope[i - 1][1] > rope[i][1]){
-                        rope[i][1]++;
-                    }else{
-                        rope[i][1]--;
-                    }
-                }
+                followMove(rope[i], rope[i - 1]);
             }
-
             stepsVisited.insert(rope[ropeLength - 1]);
         }
         myInputFile.ignore(1);

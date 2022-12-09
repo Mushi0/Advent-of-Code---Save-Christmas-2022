@@ -7,6 +7,51 @@
 
 std::ifstream myInputFile{"..\\..\\Data\\Q9.txt"};
 
+void moveHead(std::array<int, 2>& headLocation, char move){
+    switch(move){
+        case 'R':
+            headLocation[0]++;
+            break;
+        case 'U':
+            headLocation[1]++;
+            break;
+        case 'L':
+            headLocation[0]--;
+            break;
+        case 'D':
+            headLocation[1]--;
+            break;
+    }
+}
+
+void moveTail(std::array<int, 2>& tailLocation, std::array<int, 2>& headLocation){
+    if(headLocation[0] == tailLocation[0]){
+        if(headLocation[1] - tailLocation[1] > 1){
+            tailLocation[1]++;
+        }else if(tailLocation[1] - headLocation[1] > 1){
+            tailLocation[1]--;
+        }
+    }else if(headLocation[1] == tailLocation[1]){
+        if(headLocation[0] - tailLocation[0] > 1){
+            tailLocation[0]++;
+        }else if(tailLocation[0] - headLocation[0] > 1){
+            tailLocation[0]--;
+        }
+    }else if(!((std::abs(headLocation[0] - tailLocation[0]) <= 1) && 
+                (std::abs(headLocation[1] - tailLocation[1]) <= 1))){
+        if(headLocation[0] > tailLocation[0]){
+            tailLocation[0]++;
+        }else{
+            tailLocation[0]--;
+        }
+        if(headLocation[1] > tailLocation[1]){
+            tailLocation[1]++;
+        }else{
+            tailLocation[1]--;
+        }
+    }
+}
+
 int main(){
     auto start = std::chrono::high_resolution_clock::now();
     char move;
@@ -20,47 +65,8 @@ int main(){
         myInputFile >> nbSteps;
 
         for(int step = 0; step < nbSteps; step++){
-            switch(move){
-                case 'R':
-                    headLocation[0]++;
-                    break;
-                case 'U':
-                    headLocation[1]++;
-                    break;
-                case 'L':
-                    headLocation[0]--;
-                    break;
-                case 'D':
-                    headLocation[1]--;
-                    break;
-            }
-
-            if(headLocation[0] == tailLocation[0]){
-                if(headLocation[1] - tailLocation[1] > 1){
-                    tailLocation[1]++;
-                }else if(tailLocation[1] - headLocation[1] > 1){
-                    tailLocation[1]--;
-                }
-            }else if(headLocation[1] == tailLocation[1]){
-                if(headLocation[0] - tailLocation[0] > 1){
-                    tailLocation[0]++;
-                }else if(tailLocation[0] - headLocation[0] > 1){
-                    tailLocation[0]--;
-                }
-            }else if(!((std::abs(headLocation[0] - tailLocation[0]) <= 1) && 
-                        (std::abs(headLocation[1] - tailLocation[1]) <= 1))){
-                if(headLocation[0] > tailLocation[0]){
-                    tailLocation[0]++;
-                }else{
-                    tailLocation[0]--;
-                }
-                if(headLocation[1] > tailLocation[1]){
-                    tailLocation[1]++;
-                }else{
-                    tailLocation[1]--;
-                }
-            }
-
+            moveHead(headLocation, move);
+            moveTail(tailLocation, headLocation);
             stepsVisited.insert(tailLocation);
         }
         myInputFile.ignore(1);
