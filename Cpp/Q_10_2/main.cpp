@@ -4,10 +4,10 @@
 #include <cstdlib>
 #include <chrono>
 
+std::ifstream myInputFile{"..\\..\\Data\\Q10.txt"};
 const int mapWide{40};
 const int mapHigh{6};
 
-std::ifstream myInputFile{"..\\..\\Data\\Q10.txt"};
 void drawSignal(int map[], int nbCycles, int myRegister){
     if(std::abs(nbCycles%mapWide - myRegister) <= 1){
         if(map[nbCycles] == 1){
