@@ -59,7 +59,7 @@ def main():
     inspects.sort(reverse = True)
 
     print(f'Time taken: {(time.time() - start_time):.3e}s')
-    print(f'The level of monkey business after 20 rounds: {inspects[0]*inspects[1]}')
+    print(f'The level of monkey business after {nbRounds} rounds: {inspects[0]*inspects[1]}')
 
 if __name__ == '__main__':
     main()
