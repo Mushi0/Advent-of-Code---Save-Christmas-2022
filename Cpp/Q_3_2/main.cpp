@@ -9,7 +9,7 @@ char findSameItem(std::string a, std::string b, std::string c){
             for(int k = 0; k < c.length(); k++){
                 if(a[i] == b[j] && a[i] == c[k]){
                 return a[i];
-            }
+                }
             }
         }
     }
