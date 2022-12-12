@@ -37,7 +37,7 @@ def main():
         if (m, n) in stepsVisited:
             continue
         stepsVisited.add((m, n))
-        if map[m][n] == 'a':
+        if elevation[m][n] == 1:
             print(f'The fewest steps required to move to get the best signal: {d}')
             break
         for (addm, addn) in [(0, 1), (-1, 0), (0, -1), (1, 0)]:

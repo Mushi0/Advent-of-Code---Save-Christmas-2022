@@ -26,7 +26,6 @@ def main():
                 start = [i, j]
             elif map[i][j] == 'E':
                 elevation[i][j] = 26
-                end = [i, j]
             else:
                 elevation[i][j] = ord(map[i][j]) - ord('a') + 1
     
