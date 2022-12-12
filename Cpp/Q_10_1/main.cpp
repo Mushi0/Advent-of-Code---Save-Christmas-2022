@@ -14,7 +14,6 @@ int main(){
     int nbToAdd{0};
     int checkPoint{20};
     int checkPointIncreaseStep{40};
-    // int nbSteps{5};
     int signalStrengths{0};
     
     while(myInputFile){
