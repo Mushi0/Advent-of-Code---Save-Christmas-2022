@@ -4,7 +4,7 @@ import collections
 def main():
     start_time = time.time()
     
-    TXT_FILE = 'Data/Q12_test.txt'
+    TXT_FILE = 'Data/Q12.txt'
 
     map = []
     with open(TXT_FILE) as f:
