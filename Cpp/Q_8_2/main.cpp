@@ -7,7 +7,6 @@
 std::ifstream myInputFile{"..\\..\\Data\\Q8.txt"};
 const int mapSize{99};
 int map[mapSize][mapSize]{0};
-bool ifVisible[mapSize][mapSize]{false};
 
 int calScenicScore(int ii, int jj){
     if((ii == 0) || (ii == mapSize - 1) || (jj == 0) || (jj == mapSize - 1)){
