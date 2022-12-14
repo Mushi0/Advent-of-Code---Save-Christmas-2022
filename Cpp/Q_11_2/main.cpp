@@ -11,14 +11,13 @@ const int nbRounds = 10000;
 const int nbMonkeys = 8;
 
 struct monkey{
-    std::vector<int> originalItems;
+    std::vector<int> items;
     char operation;
     int operand;
     int divisor;
     int resultTrue;
     int resultFalse;
     int nbInspects{0};
-    std::vector<std::array<int, nbMonkeys>> items;
 };
 
 int main(){
@@ -49,53 +48,35 @@ int main(){
     itemsVec = {79};
     newMonkey = monkey{itemsVec, '+', 8, 19, 4, 5};
     monkeys[7] = newMonkey;
-
-    for(int monkeynb = 0; monkeynb < nbMonkeys; monkeynb++){
-        std::vector<std::array<int, nbMonkeys>> itemsRemainderVec;
-        for(int item = 0; item < monkeys[monkeynb].originalItems.size(); item++){
-            std::array<int, nbMonkeys> itemRemainder;
-            for(int i = 0; i < nbMonkeys; i++){
-                itemRemainder[i] = monkeys[monkeynb].originalItems[item] % 
-                                    monkeys[i].divisor;
-            }
-            itemsRemainderVec.push_back(itemRemainder);
-        }
-        monkeys[monkeynb].items = itemsRemainderVec;
+     
+    int productOfDivisors{1};
+    for(int i= 0; i < nbMonkeys; i++){
+        productOfDivisors *= monkeys[i].divisor;
     }
 
+    long long int item;
     for(int roundnb = 0; roundnb < nbRounds; roundnb++){
         for(int monkeynb = 0; monkeynb < nbMonkeys; monkeynb++){
-            for(int item = 0; item < monkeys[monkeynb].items.size(); item++){
-                std::array<int, nbMonkeys> itemRemainder;
-                for(int i = 0; i < nbMonkeys; i++){
-                    switch (monkeys[monkeynb].operation){
+            for(int i = 0; i < monkeys[monkeynb].items.size(); i++){
+                item = monkeys[monkeynb].items[i];
+                switch (monkeys[monkeynb].operation){
                     case '+':
-                        itemRemainder[i] = ((monkeys[monkeynb].items[item][i] + 
-                                            monkeys[monkeynb].operand) % 
-                                            monkeys[i].divisor);
+                        item = (item + monkeys[monkeynb].operand) % productOfDivisors;
                         break;
                     case '*':
-                        itemRemainder[i] = ((monkeys[monkeynb].items[item][i] * 
-                                            monkeys[monkeynb].operand) % 
-                                            monkeys[i].divisor);
+                        item = (item * monkeys[monkeynb].operand) % productOfDivisors;
                         break;
                     case '^':
-                        itemRemainder[i] = ((monkeys[monkeynb].items[item][i] * 
-                                            monkeys[monkeynb].items[item][i]) % 
-                                            monkeys[i].divisor);
+                        item = (item * item) % productOfDivisors;
                         break;
-                    default:
-                        itemRemainder[i] = 0;
-                        break;
-                    }
                 }
 
                 monkeys[monkeynb].nbInspects++;
 
-                if(itemRemainder[monkeynb] == 0){
-                    monkeys[monkeys[monkeynb].resultTrue].items.push_back(itemRemainder);
+                if(item % monkeys[monkeynb].divisor == 0){
+                    monkeys[monkeys[monkeynb].resultTrue].items.push_back(item);
                 }else{
-                    monkeys[monkeys[monkeynb].resultFalse].items.push_back(itemRemainder);
+                    monkeys[monkeys[monkeynb].resultFalse].items.push_back(item);
                 }
             }
             monkeys[monkeynb].items = {};
