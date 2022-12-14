@@ -25,30 +25,12 @@ void moveHead(std::array<int, 2>& headLocation, char move){
 }
 
 void moveTail(std::array<int, 2>& tailLocation, std::array<int, 2>& headLocation){
-    if(headLocation[0] == tailLocation[0]){
-        if(headLocation[1] - tailLocation[1] > 1){
-            tailLocation[1]++;
-        }else if(tailLocation[1] - headLocation[1] > 1){
-            tailLocation[1]--;
-        }
-    }else if(headLocation[1] == tailLocation[1]){
-        if(headLocation[0] - tailLocation[0] > 1){
-            tailLocation[0]++;
-        }else if(tailLocation[0] - headLocation[0] > 1){
-            tailLocation[0]--;
-        }
-    }else if(!((std::abs(headLocation[0] - tailLocation[0]) <= 1) && 
-                (std::abs(headLocation[1] - tailLocation[1]) <= 1))){
-        if(headLocation[0] > tailLocation[0]){
-            tailLocation[0]++;
-        }else{
-            tailLocation[0]--;
-        }
-        if(headLocation[1] > tailLocation[1]){
-            tailLocation[1]++;
-        }else{
-            tailLocation[1]--;
-        }
+    if(std::abs(headLocation[0] - tailLocation[0]) >= 2){
+        tailLocation[0] += (headLocation[0] - tailLocation[0])/2;
+        tailLocation[1] += (headLocation[1] - tailLocation[1]);
+    }else if(std::abs(headLocation[1] - tailLocation[1]) >= 2){
+        tailLocation[1] += (headLocation[1] - tailLocation[1])/2;
+        tailLocation[0] += (headLocation[0] - tailLocation[0]);
     }
 }
 

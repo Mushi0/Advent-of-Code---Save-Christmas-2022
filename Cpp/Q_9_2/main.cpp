@@ -26,30 +26,16 @@ void moveHead(std::array<int, 2>& headLocation, char move){
 }
 
 void followMove(std::array<int, 2>& thisLocation, std::array<int, 2>& previousLocation){
-    if(previousLocation[0] == thisLocation[0]){
-        if(previousLocation[1] - thisLocation[1] > 1){
-            thisLocation[1]++;
-        }else if(thisLocation[1] - previousLocation[1] > 1){
-            thisLocation[1]--;
-        }
-    }else if(previousLocation[1] == thisLocation[1]){
-        if(previousLocation[0] - thisLocation[0] > 1){
-            thisLocation[0]++;
-        }else if(thisLocation[0] - previousLocation[0] > 1){
-            thisLocation[0]--;
-        }
-    }else if(!((std::abs(previousLocation[0] - thisLocation[0]) <= 1) && 
-                (std::abs(previousLocation[1] - thisLocation[1]) <= 1))){
-        if(previousLocation[0] > thisLocation[0]){
-            thisLocation[0]++;
+    if(std::abs(previousLocation[0] - thisLocation[0]) >= 2){
+        thisLocation[0] += (previousLocation[0] - thisLocation[0])/2;
+        if(std::abs(previousLocation[1] - thisLocation[1]) >= 2){
+            thisLocation[1] += (previousLocation[1] - thisLocation[1])/2;
         }else{
-            thisLocation[0]--;
+            thisLocation[1] += (previousLocation[1] - thisLocation[1]);
         }
-        if(previousLocation[1] > thisLocation[1]){
-            thisLocation[1]++;
-        }else{
-            thisLocation[1]--;
-        }
+    }else if(std::abs(previousLocation[1] - thisLocation[1]) >= 2){
+        thisLocation[1] += (previousLocation[1] - thisLocation[1])/2;
+        thisLocation[0] += (previousLocation[0] - thisLocation[0]);
     }
 }
 
