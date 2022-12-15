@@ -1,11 +1,11 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
+#include <string>
 #include <chrono>
 
 std::ifstream myInputFile{"../../Data/Q15.txt"};
 int maxSize{4000000};
-int frequencyMult{4000000};
 
 struct coord{
     int x{0};
@@ -20,7 +20,7 @@ int main(){
     coord sensor{0, 0};
     coord beacon{0, 0};
     int distance{0};
-    int tuningFrequency{0};
+    std::string tuningFrequency;
 
     while(myInputFile){
         myInputFile >> sensor.x;
@@ -32,18 +32,65 @@ int main(){
         distances.push_back(distance);
     }
 
-    for(int i = 0; i < maxSize; i++){
-        for(int j = 0; j < maxSize; j++){
-            bool covered{false};
-            for(int sensornb = 0; sensornb < sensors.size(); sensornb++){
-                if((std::abs(i - sensors[sensornb].x) + std::abs(j - sensors[sensornb].y)) <= distances[sensornb]){
-                    covered = true;
+    bool fond{false};
+    for(int sensornb = 0; sensornb < sensors.size(); sensornb++){
+        for(int y = sensors[sensornb].y - distances[sensornb] - 1;
+                y <= sensors[sensornb].y + distances[sensornb] + 1;
+                y++){
+            if(y >= 0 && y <= maxSize){
+                if((y == sensors[sensornb].y - distances[sensornb] - 1) || 
+                        (y == sensors[sensornb].y + distances[sensornb] + 1)){
+                    int x = sensors[sensornb].x;
+                    if(x >= 0 && x <= maxSize){
+                        fond = true;
+                        for(int checksensor = 0; checksensor < sensors.size(); checksensor++){
+                            if((checksensor != sensornb) && 
+                                    (std::abs(x - sensors[checksensor].x) + 
+                                    std::abs(y - sensors[checksensor].y) 
+                                    <= distances[checksensor])){
+                                fond = false;
+                                break;
+                            }
+                        }
+                        if(fond){
+                            tuningFrequency = std::to_string(x*4) + std::to_string(y);
+                            break;
+                        }
+                    }
+                }else{
+                    int xs[2]{sensors[sensornb].x - \
+                            distances[sensornb] + \
+                            std::abs(y - sensors[sensornb].y) - 1, 
+                            sensors[sensornb].x + \
+                            distances[sensornb] - \
+                            std::abs(y - sensors[sensornb].y) + 1};
+                    for(int i = 0; i <= 1; i++){
+                        int x = xs[i];
+                        if(x >= 0 && x <= maxSize){
+                            fond = true;
+                            for(int checksensor = 0; checksensor < sensors.size(); checksensor++){
+                                if((checksensor != sensornb) && 
+                                        ((std::abs(x - sensors[checksensor].x) + 
+                                        std::abs(y - sensors[checksensor].y) 
+                                        <= distances[checksensor]))){
+                                    fond = false;
+                                    break;
+                                }
+                            }
+                            if(fond){
+                                tuningFrequency = std::to_string(x*4) + std::to_string(y);
+                                break;
+                            }
+                        }
+                    }
+                    if(fond){
+                        break;
+                    }
                 }
             }
-            if(!covered){
-                tuningFrequency = i*frequencyMult + j;
-                break;
-            }
+        }
+        if(fond){
+            break;
         }
     }
 
