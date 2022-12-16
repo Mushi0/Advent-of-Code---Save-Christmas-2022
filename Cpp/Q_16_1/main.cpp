@@ -5,7 +5,7 @@
 #include <array>
 #include <chrono>
 
-std::ifstream myInputFile{"../../Data/Q16.txt"};
+std::ifstream myInputFile{"../../Data/Q16_test.txt"};
 int totalTime{30};
 
 std::vector<std::string> strsplit(std::string strToSplit, char delimeter){
@@ -107,10 +107,12 @@ int main(){
         }
     }
 
+    int MostRelease{returnBestMove({totalTime, 0}, nodes[0], nodes)[1]};
+
     auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
     std::cout << "Time taken: " << duration.count()*1e-6 << "s\n";
     std::cout << "The most pressure one can release: " 
-                << returnBestMove({totalTime, 0}, nodes[0], nodes)[1] << std::endl;
+                << MostRelease << std::endl;
     return 0;
 }
