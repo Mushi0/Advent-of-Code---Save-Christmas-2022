@@ -15,6 +15,20 @@ struct coord{
 std::vector<coord> sensors;
 std::vector<int> distances;
 
+bool checkIfFond(int x, int y, std::vector<coord>& sensors, int sensornb){
+    bool fond{true};
+    for(int checksensor = 0; checksensor < sensors.size(); checksensor++){
+        if((checksensor != sensornb) && 
+                (std::abs(x - sensors[checksensor].x) + 
+                std::abs(y - sensors[checksensor].y) 
+                <= distances[checksensor])){
+            fond = false;
+            break;
+        }
+    }
+    return fond;
+}
+
 int main(){
     auto start = std::chrono::high_resolution_clock::now();
     coord sensor{0, 0};
@@ -42,16 +56,7 @@ int main(){
                         (y == sensors[sensornb].y + distances[sensornb] + 1)){
                     int x = sensors[sensornb].x;
                     if(x >= 0 && x <= maxSize){
-                        fond = true;
-                        for(int checksensor = 0; checksensor < sensors.size(); checksensor++){
-                            if((checksensor != sensornb) && 
-                                    (std::abs(x - sensors[checksensor].x) + 
-                                    std::abs(y - sensors[checksensor].y) 
-                                    <= distances[checksensor])){
-                                fond = false;
-                                break;
-                            }
-                        }
+                        fond = checkIfFond(x, y, sensors, sensornb);
                         if(fond){
                             tuningFrequency = std::to_string(x*4) + std::to_string(y);
                             break;
@@ -67,16 +72,7 @@ int main(){
                     for(int i = 0; i <= 1; i++){
                         int x = xs[i];
                         if(x >= 0 && x <= maxSize){
-                            fond = true;
-                            for(int checksensor = 0; checksensor < sensors.size(); checksensor++){
-                                if((checksensor != sensornb) && 
-                                        ((std::abs(x - sensors[checksensor].x) + 
-                                        std::abs(y - sensors[checksensor].y) 
-                                        <= distances[checksensor]))){
-                                    fond = false;
-                                    break;
-                                }
-                            }
+                            fond = checkIfFond(x, y, sensors, sensornb);
                             if(fond){
                                 tuningFrequency = std::to_string(x*4) + std::to_string(y);
                                 break;
