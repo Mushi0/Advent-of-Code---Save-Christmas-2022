@@ -42,27 +42,20 @@ def main():
         if minRemain <= 0:
             return 0
         best = 0
-        if thisNode.name not in opened:
-            pressureReleaseIfOpen = (minRemain - 1)*thisNode.flowRate
-            currentOpened = tuple(opened + (thisNode.name, ))
-            for neighbour in thisNode.connections:
-                neighbourNode = findNode(neighbour)
-                if pressureReleaseIfOpen != 0:
-                    # open this node
-                    best = max(best, 
-                        pressureReleaseIfOpen + returnBestMove(neighbourNode, 
-                                                                currentOpened, 
-                                                                minRemain - 2))
-                # not open this node
-                best = max(best, returnBestMove(neighbourNode, 
-                                                opened, 
-                                                minRemain - 1))
-        else:
-            for neighbour in thisNode.connections:
-                neighbourNode = findNode(neighbour)
-                best = max(best, returnBestMove(neighbourNode, 
-                                                opened, 
-                                                minRemain - 1))
+        pressureReleaseIfOpen = (minRemain - 1)*thisNode.flowRate
+        currentOpened = tuple(opened + (thisNode.name, ))
+        for neighbour in thisNode.connections:
+            neighbourNode = findNode(neighbour)
+            if thisNode.name not in opened and pressureReleaseIfOpen != 0:
+                # open this node
+                best = max(best, 
+                    pressureReleaseIfOpen + returnBestMove(neighbourNode, 
+                                                            currentOpened, 
+                                                            minRemain - 2))
+            # not open this node
+            best = max(best, returnBestMove(neighbourNode, 
+                                            opened, 
+                                            minRemain - 1))
         return best
     
     best = returnBestMove(findNode('AA'), (), totalTime)
