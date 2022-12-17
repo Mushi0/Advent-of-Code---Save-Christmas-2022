@@ -19,7 +19,7 @@
 |14|[:rabbit:](https://github.com/Mushi0/Advent-of-Code---Save-Christmas-2022/tree/main/Cpp/Q_14_1)[:bear:](https://github.com/Mushi0/Advent-of-Code---Save-Christmas-2022/tree/main/Cpp/Q_14_2)|7.63e-03s|1.22e-02s||||
 |15|[:rabbit:](https://github.com/Mushi0/Advent-of-Code---Save-Christmas-2022/tree/main/Cpp/Q_15_1)[:bear:](https://github.com/Mushi0/Advent-of-Code---Save-Christmas-2022/tree/main/Cpp/Q_15_2)|5.32e-00s|6.85e-01s||||
 |16||||[:rabbit:](https://github.com/Mushi0/Advent-of-Code---Save-Christmas-2022/blob/main/Python/Q_16_1.py)[:bear:](https://github.com/Mushi0/Advent-of-Code---Save-Christmas-2022/blob/main/Python/Q_16_2.py)|3.804e+01s|-|
-|17||||[:rabbit:](https://github.com/Mushi0/Advent-of-Code---Save-Christmas-2022/blob/main/Python/Q_17_1.py)|-||
+|17||||[:rabbit:](https://github.com/Mushi0/Advent-of-Code---Save-Christmas-2022/blob/main/Python/Q_17_1.py)|6.621e-02s||
 |18|||||||
 |19|||||||
 |20|||||||
